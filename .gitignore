@@ -13,3 +13,9 @@ gentle.egg-info/
 exp/
 ext/k3
 ext/m3
+dist
+build
+.DS_Store
+*.spec
+*.mp3
+*.txt
