@@ -23,10 +23,9 @@ class SourceResolver:
 
     def get_datadir(self, name):
         return self.get_resource(name)
-
 class PyinstallResolver:
     def __init__(self):
-        self.root = os.path.abspath(os.path.join(getattr(sys, '_MEIPASS', ''), os.pardir, 'Resources'))
+        self.root = os.path.dirname(os.path.realpath(sys.executable))
 
     def get_binary(self, name):
         return os.path.join(self.root, name)
@@ -39,7 +38,7 @@ class PyinstallResolver:
             return get_datadir(name) # DMG may be read-only; fall-back to datadir (ie. so language models can be added)
 
     def get_datadir(self, path):
-        return os.path.join(os.environ['HOME'], '.gentle', path)
+        return os.path.join(self.root, path)
 
 RESOLVER = PyinstallResolver() if hasattr(sys, "frozen") else SourceResolver()
 
